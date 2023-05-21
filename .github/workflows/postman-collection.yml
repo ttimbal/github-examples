@@ -10,18 +10,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
+      # Insert steps for your pipeline
   
-  test:
+  test-api:
     name: test api
     needs: deploy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
       - name: Install Postman CLI
-        run: |
-          curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+        run: curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+
       - name: Login to Postman CLI
         run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
+        
       - name: Run API tests
-        run: |
-          postman collection run "26465507-b9482d89-94ca-4d45-8c55-c1c82bcc999c" -e "26465507-c52abfe3-1e95-4c9d-ace0-fe219ac1b3bd"              
+        run: postman collection run "23289337-ae94e39e-d554-49ee-8b12-e7cfa39299ad" -e "23289337-72839b32-19c9-4b91-8903-21091d07336c"       
