@@ -29,7 +29,7 @@ jobs:
         run: |          
           git pull
           git merge origin/${{ github.ref_name }}
-          git push origin env.DEVELOP_MERGED
+          git push origin $DEVELOP_MERGED
 
       # Insert steps for your pipeline
   
