@@ -4,7 +4,7 @@ on:
     branches:
       - main
   workflow_dispatch:        
-    
+
 jobs:
   deploy:
     name: deploy
@@ -17,6 +17,16 @@ jobs:
           echo ${{ github.ref_name }}
           echo $ {{ github.ref }}
           echo ${{ github.event_name }}
+
+      - name: checkout branch
+        if: ${{ github.event_name == 'workflow_dispatch' && github.ref_name != 'main' }}
+        run: |
+          git checkout develop
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "generated"
+          git push
 
       # Insert steps for your pipeline
   
