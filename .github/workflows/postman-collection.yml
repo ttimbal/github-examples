@@ -17,10 +17,10 @@ jobs:
       - name: Add logs
         run: |          
           echo ${{ github.ref_name=='main'}}
-          echo $ {{ github.ref }}
+          echo ${{ github.ref }}
           echo ${{ github.event_name }}
 
-      - name: checkout branch
+      - name: Merge branch
         if: ${{ github.event_name == 'workflow_dispatch' && github.ref_name != 'develop' }}
         run: |          
           git pull
