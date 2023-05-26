@@ -5,6 +5,10 @@ on:
       - main
   workflow_dispatch:        
 
+env:
+  DEVELOP: develop
+  DEVELOP_MERGED: develop-merged
+
 jobs:
   deploy:
     name: deploy
@@ -12,20 +16,20 @@ jobs:
     steps:
       - uses: actions/checkout@v3      
         with: 
-          ref: ${{ github.event_name == 'workflow_dispatch' && github.ref_name != 'develop' && 'develop-merged' ||  github.ref_name }}
+          ref: ${{ github.event_name == 'workflow_dispatch' && github.ref_name != env.DEVELOP && env.DEVELOP_MERGED ||  github.ref_name }}
 
       - name: Add logs
         run: |          
-          echo ${{ github.ref_name=='main'}}
+          echo ${{ github.ref_name }}
           echo ${{ github.ref }}
           echo ${{ github.event_name }}
 
       - name: Merge branch
-        if: ${{ github.event_name == 'workflow_dispatch' && github.ref_name != 'develop' }}
+        if: ${{ github.event_name == 'workflow_dispatch' && github.ref_name != env.DEVELOP }}
         run: |          
           git pull
           git merge origin/${{ github.ref_name }}
-          git push origin develop-merged
+          git push origin env.DEVELOP_MERGED
 
       # Insert steps for your pipeline
   
