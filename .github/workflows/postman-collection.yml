@@ -17,7 +17,7 @@ jobs:
 
       - name: Add logs
         run: |          
-          echo ${{ github.ref_name=='main'?'test','test2' }}
+          echo ${{ github.ref_name=='main' && 'test' || 'test2' }}
           echo $ {{ github.ref }}
           echo ${{ github.event_name }}
 
