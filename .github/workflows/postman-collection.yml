@@ -3,7 +3,8 @@ on:
   push:
     branches:
       - main
-          
+  workflow_dispatch:        
+    
 jobs:
   deploy:
     name: deploy
@@ -13,9 +14,9 @@ jobs:
 
       - name: Add logs
         run: |          
-          echo github.ref_name 
-          echo github.ref
-          echo github.event_name
+          echo ${{ github.ref_name }}
+          echo $ {{ github.ref }}
+          echo ${{ github.event_name }}
 
       # Insert steps for your pipeline
   
