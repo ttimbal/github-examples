@@ -11,6 +11,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Add logs
+        run: |          
+          echo github.ref_name 
+          echo github.ref
+          echo github.event_name
+
       # Insert steps for your pipeline
   
   test-api:
