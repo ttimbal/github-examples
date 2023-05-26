@@ -27,8 +27,7 @@ jobs:
           echo git branch
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add .
-          git commit -m "generated"
+          git merge develop
           git push
 
       # Insert steps for your pipeline
