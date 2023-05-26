@@ -25,6 +25,7 @@ jobs:
         if: ${{ github.event_name == 'workflow_dispatch' && github.ref_name != 'develop' }}
         run: |
           echo git branch
+          git pull
           git config user.name github-actions
           git config user.email github-actions@github.com
           git merge ${{ github.ref_name }}
