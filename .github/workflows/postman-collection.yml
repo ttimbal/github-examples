@@ -10,14 +10,13 @@ jobs:
     name: deploy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-        if: ${{ github.event_name == 'workflow_dispatch' && github.ref_name != 'develop' }}
+      - uses: actions/checkout@v3      
         with: 
-          ref: develop
+          ref: ${{ github.event_name == 'workflow_dispatch' && github.ref_name != 'develop' && 'develop-merged' ||  github.ref_name }}
 
       - name: Add logs
         run: |          
-          echo ${{ github.ref_name=='main' && 'test' || 'test2' }}
+          echo ${{ github.ref_name=='main'}}
           echo $ {{ github.ref }}
           echo ${{ github.event_name }}
 
@@ -26,7 +25,7 @@ jobs:
         run: |          
           git pull
           git merge origin/${{ github.ref_name }}
-          git push origin develop
+          git push origin develop-merged
 
       # Insert steps for your pipeline
   
