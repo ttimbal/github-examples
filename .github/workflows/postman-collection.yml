@@ -8,6 +8,7 @@ on:
 env:
   DEVELOP: develop
   DEVELOP_MERGED: develop-merged
+  WORKFLOW_DISPATCH: workflow_dispatch
 
 jobs:
   deploy:
@@ -16,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3      
         with: 
-          ref: ${{ github.event_name == 'workflow_dispatch' && github.ref_name != env.DEVELOP && env.DEVELOP_MERGED ||  github.ref_name }}
+          ref: ${{ github.event_name == env.WORKFLOW_DISPATCH && github.ref_name != env.DEVELOP && env.DEVELOP_MERGED ||  github.ref_name }}
 
       - name: Add logs
         run: |          
@@ -25,7 +26,7 @@ jobs:
           echo ${{ github.event_name }}
 
       - name: Merge branch
-        if: ${{ github.event_name == 'workflow_dispatch' && github.ref_name != env.DEVELOP }}
+        if: ${{ github.event_name == env.WORKFLOW_DISPATCH && github.ref_name != env.DEVELOP }}
         run: |          
           git pull
           git merge origin/${{ github.ref_name }}
